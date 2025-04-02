@@ -21,4 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "EkonomicScannerApp"
 include(":app")
- 
+include(":data")
+include(":domain")
+include(":presentation")
