@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 
 @Composable
-fun MainComposable(navController: NavHostController) {
+fun MainComposable(navController: NavHostController, onCapturePhoto: () -> Unit) {
     LazyColumn(modifier = Modifier
         .fillMaxSize()
         .padding(16.dp)) {
@@ -23,7 +23,7 @@ fun MainComposable(navController: NavHostController) {
         }
 
         item {
-            Button(onClick = { navController.navigate("cameraScreen") }) {
+            Button(onClick = onCapturePhoto ) {
                 Text("Take a Receipt Photo")
             }
         }
