@@ -43,10 +43,15 @@ dependencies {
 
     implementation(project(":domain"))
 
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
     // Hilt DI
     implementation(libs.hilt.android)
     kapt("com.google.dagger:hilt-android-compiler:${libs.versions.hilt.get()}")
     implementation(libs.javapoet)
+
+    // Hilt navigation for Jetpack Compose
+    implementation(libs.hilt.compose)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
