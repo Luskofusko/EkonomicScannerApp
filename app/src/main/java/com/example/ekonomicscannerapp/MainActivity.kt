@@ -9,21 +9,12 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.presentation.composable.CameraScreen
 import com.example.presentation.ui.theme.EkonomicScannerAppTheme
-import com.example.presentation.composable.MainComposable
-import com.example.presentation.composable.ReceiptListScreen
+import com.example.presentation.navigation.EkonomicNavHost
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -80,33 +71,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             navController = rememberNavController()
             EkonomicScannerAppTheme {
-                EkonomicNavHost(navController as NavHostController, onCaptureClick = { checkCameraPermissionAndNavigate() })
-
-            }
-        }
-    }
-}
-
-@Composable
-fun EkonomicNavHost(navHostController: NavHostController, onCaptureClick: () -> Unit) {
-    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-        NavHost(
-            navController = navHostController,
-            startDestination = "main",
-            modifier = Modifier.padding(innerPadding)
-        ) {
-            composable("main") {
-                MainComposable(navController = navHostController, onCapturePhoto = onCaptureClick)
-            }
-            composable("receiptList") {
-                ReceiptListScreen(navController = navHostController)
-            }
-            composable("cameraScreen") {
-                CameraScreen(
-                    onPhotoCaptured = { uri ->
-                        navHostController.popBackStack()
-                    },
-                    onBack = { navHostController.popBackStack() }
+                EkonomicNavHost(
+                    navController as NavHostController,
+                    onCaptureClick = { checkCameraPermissionAndNavigate() }
                 )
             }
         }
