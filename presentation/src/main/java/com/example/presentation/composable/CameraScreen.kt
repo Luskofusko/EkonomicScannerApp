@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,25 +43,41 @@ fun CameraScreen(
         remember { ProcessCameraProvider.getInstance(context) }
     val executor: ExecutorService = remember { Executors.newSingleThreadExecutor() }
     var imageCapture by remember { mutableStateOf<ImageCapture?>(null) }
+    var cameraProvider by remember { mutableStateOf<ProcessCameraProvider?>(null) }
+
+    // Get camera provider and store it
+    LaunchedEffect(Unit) {
+        cameraProvider = cameraProviderFuture.get()
+    }
+
+    // Clean up CameraX resources when leaving screen
+    DisposableEffect(Unit) {
+        val provider = cameraProviderFuture.get()
+        cameraProvider = provider
+        onDispose {
+            provider.unbindAll()  // Ensure we release the camera when leaving the screen
+            executor.shutdown()
+        }
+    }
 
     Column(modifier = Modifier.fillMaxSize()) {
         // Camera Preview
         AndroidView(factory = { ctx ->
-            val cameraProvider = cameraProviderFuture.get()
-            val preview = Preview.Builder().build()
-            imageCapture = ImageCapture.Builder().build()
-
-            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
             val previewView = PreviewView(ctx)
 
-            cameraProvider.bindToLifecycle(
-                lifecycleOwner, cameraSelector, preview, imageCapture
-            )
-            preview.setSurfaceProvider(previewView.surfaceProvider)
+            cameraProviderFuture.get().also { provider ->
+                cameraProvider = provider // Store reference to camera provider
+                val preview = Preview.Builder().build()
+                imageCapture = ImageCapture.Builder().build()
+                val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+
+                provider.bindToLifecycle(lifecycleOwner, cameraSelector, preview, imageCapture)
+                preview.setSurfaceProvider(previewView.surfaceProvider)
+            }
+
             previewView
         }, modifier = Modifier.weight(1f))
 
-        // Capture Button
         Button(
             onClick = {
                 imageCapture?.let { capture ->
@@ -72,7 +90,8 @@ fun CameraScreen(
                         object : ImageCapture.OnImageSavedCallback {
                             override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                                 val savedUri = Uri.fromFile(file)
-                                onPhotoCaptured(savedUri)
+                                    onPhotoCaptured(savedUri)
+
                             }
 
                             override fun onError(exception: ImageCaptureException) {
@@ -92,6 +111,7 @@ fun CameraScreen(
 
         Button(
             onClick = {
+                cameraProvider?.unbindAll() // Unbind camera before navigating back
                 onBack()
             },
             modifier = Modifier
