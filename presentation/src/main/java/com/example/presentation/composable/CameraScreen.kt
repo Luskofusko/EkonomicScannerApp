@@ -3,18 +3,27 @@ package com.example.presentation.composable
 import android.net.Uri
 import android.util.Log
 import android.widget.Toast
+import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.compose.foundation.layout.*
+import androidx.camera.view.PreviewView
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import com.google.common.util.concurrent.ListenableFuture
 import java.io.File
@@ -37,11 +46,11 @@ fun CameraScreen(
         // Camera Preview
         AndroidView(factory = { ctx ->
             val cameraProvider = cameraProviderFuture.get()
-            val preview = androidx.camera.core.Preview.Builder().build()
+            val preview = Preview.Builder().build()
             imageCapture = ImageCapture.Builder().build()
 
-            val cameraSelector = androidx.camera.core.CameraSelector.DEFAULT_BACK_CAMERA
-            val previewView = androidx.camera.view.PreviewView(ctx)
+            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+            val previewView = PreviewView(ctx)
 
             cameraProvider.bindToLifecycle(
                 lifecycleOwner, cameraSelector, preview, imageCapture
