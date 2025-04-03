@@ -13,6 +13,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.presentation.composable.CameraScreen
 import com.example.presentation.ui.theme.EkonomicScannerAppTheme
 import com.example.presentation.composable.MainComposable
 import com.example.presentation.composable.ReceiptListScreen
@@ -44,11 +45,17 @@ fun EkonomicNavHost(navHostController: NavHostController) {
         ) {
             composable("main") {
                 MainComposable(navController = navHostController)
-
             }
             composable("receiptList") {
                 ReceiptListScreen(navController = navHostController)
-
+            }
+            composable("cameraScreen") {
+                CameraScreen(
+                    onPhotoCaptured = { uri ->
+                        navHostController.popBackStack()
+                    },
+                    onBack = { navHostController.popBackStack() }
+                )
             }
         }
     }
