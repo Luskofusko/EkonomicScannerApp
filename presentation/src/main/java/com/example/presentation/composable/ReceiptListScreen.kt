@@ -31,22 +31,27 @@ import com.example.presentation.viewmodel.ReceiptViewModel
 fun ReceiptListScreen(viewModel: ReceiptViewModel = hiltViewModel(), navController: NavHostController) {
     val receipts by viewModel.receipts.collectAsState()
 
-    Column(modifier = Modifier
+    LazyColumn(modifier = Modifier
         .fillMaxSize()
         .padding(16.dp)) {
-        ReceiptInputSection { receipt ->
-            viewModel.addReceipt(receipt)
-        }
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        LazyColumn {
-            items(receipts) { receipt ->
-                ReceiptItem(receipt)
+        item {
+            ReceiptInputSection { receipt ->
+                viewModel.addReceipt(receipt)
             }
         }
-        Button(onClick = { navController.popBackStack() }) {
-            Text("Go Back")
+
+        item {
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+
+        items(receipts) { receipt ->
+            ReceiptItem(receipt)
+        }
+        item {
+            Button(onClick = { navController.popBackStack() }) {
+                Text("Go Back")
+            }
         }
     }
 }
