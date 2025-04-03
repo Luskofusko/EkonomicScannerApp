@@ -23,11 +23,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.example.domain.model.Receipt
 import com.example.presentation.viewmodel.ReceiptViewModel
 
 @Composable
-fun ReceiptListScreen(viewModel: ReceiptViewModel = hiltViewModel()) {
+fun ReceiptListScreen(viewModel: ReceiptViewModel = hiltViewModel(), navController: NavHostController) {
     val receipts by viewModel.receipts.collectAsState()
 
     Column(modifier = Modifier
@@ -43,6 +44,9 @@ fun ReceiptListScreen(viewModel: ReceiptViewModel = hiltViewModel()) {
             items(receipts) { receipt ->
                 ReceiptItem(receipt)
             }
+        }
+        Button(onClick = { navController.popBackStack() }) {
+            Text("Go Back")
         }
     }
 }
