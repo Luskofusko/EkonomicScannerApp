@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.InsertPhoto
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -23,10 +24,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.domain.model.Receipt
+import com.example.presentation.ui.theme.Indigo80
 
 @Composable
 fun ReceiptItem(
@@ -37,11 +40,10 @@ fun ReceiptItem(
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showEditDialog by remember { mutableStateOf(false) }
 
-    val imagePainter = if (receipt.photoPath.toIntOrNull() != null) {
-        // If photoPath is a resource ID
-        painterResource(id = receipt.photoPath.toInt())
+    val isPlaceholder = receipt.photoPath.isBlank()
+    val imagePainter = if (isPlaceholder) {
+        rememberVectorPainter(image = Icons.Default.InsertPhoto)
     } else {
-        // If photoPath is a URI or file path
         rememberAsyncImagePainter(model = receipt.photoPath)
     }
 
@@ -61,14 +63,15 @@ fun ReceiptItem(
             Image(
                 painter = imagePainter,
                 contentDescription = "Receipt Image",
-                modifier = Modifier.size(80.dp)
+                modifier = Modifier.size(80.dp),
+                colorFilter =  if (isPlaceholder) ColorFilter.tint(Indigo80) else null
             )
             Column(modifier = Modifier.weight(1f).padding(16.dp), horizontalAlignment = Alignment.Start) {
                 Text(text = "Date: ${receipt.date}", style = MaterialTheme.typography.titleMedium)
                 Text(text = "Total: ${receipt.totalAmount} ${receipt.currency}", style = MaterialTheme.typography.bodyMedium)
             }
             IconButton(
-                onClick = { showEditDialog = true /* TODO: trigger edit flow */ },
+                onClick = { showEditDialog = true },
                 modifier = Modifier.padding(end = 2.dp)
             ) {
                 Icon(

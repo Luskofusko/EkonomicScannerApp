@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.domain.model.Receipt
-import com.example.presentation.R
 import com.example.presentation.viewmodel.ReceiptViewModel
 
 @Composable
@@ -53,8 +52,6 @@ fun ReceiptInputSection(onAddReceipt: (Receipt) -> Unit) {
 
     Column(modifier = Modifier.fillMaxWidth()) {
 
-        val placeholderImage = R.drawable.placeholder_receipt_foreground
-
         OutlinedTextField(
             value = date,
             onValueChange = { date = it },
@@ -76,7 +73,7 @@ fun ReceiptInputSection(onAddReceipt: (Receipt) -> Unit) {
         Button(
             onClick = {
                 val receipt = Receipt(
-                    photoPath = placeholderImage.toString(),
+                    photoPath = "",
                     date = date,
                     totalAmount = totalAmount.toDoubleOrNull() ?: 0.0,
                     currency = currency
