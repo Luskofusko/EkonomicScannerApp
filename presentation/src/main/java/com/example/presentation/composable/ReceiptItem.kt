@@ -31,7 +31,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.domain.model.Receipt
 
 @Composable
-fun ReceiptItem(receipt: Receipt) {
+fun ReceiptItem(receipt: Receipt, onDelete: (Receipt) -> Unit) {
     var showDialog by remember { mutableStateOf(false) }
     val imagePainter = if (receipt.photoPath.toIntOrNull() != null) {
         // If photoPath is a resource ID
@@ -83,7 +83,7 @@ fun ReceiptItem(receipt: Receipt) {
             confirmButton = {
                 TextButton(
                     onClick = {
-                        //onDelete()
+                        onDelete(receipt)
                         showDialog = false
                     }
                 ) {

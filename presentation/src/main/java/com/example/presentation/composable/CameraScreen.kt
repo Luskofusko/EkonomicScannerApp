@@ -90,8 +90,8 @@ fun CameraScreen(
                         object : ImageCapture.OnImageSavedCallback {
                             override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                                 val savedUri = Uri.fromFile(file)
-                                    onPhotoCaptured(savedUri)
 
+                                onPhotoCaptured(savedUri)
                             }
 
                             override fun onError(exception: ImageCaptureException) {
