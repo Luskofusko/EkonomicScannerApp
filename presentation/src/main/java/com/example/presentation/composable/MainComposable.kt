@@ -1,5 +1,6 @@
 package com.example.presentation.composable
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -58,7 +59,11 @@ fun MainComposable(
             items(receipts) { receipt ->
                 ReceiptItem(
                     receipt,
-                    onDelete = { viewModel.removeReceipt(it)}
+                    onDelete = { viewModel.removeReceipt(it) },
+                    onEdit = {
+                        Log.d("EditableReceipt", "Updated receipt: ${it.date}, ${it.totalAmount}")
+                        navController.navigate("editReceiptScreen")
+                    }
                 )
             }
         }

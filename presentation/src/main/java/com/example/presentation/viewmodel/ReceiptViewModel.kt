@@ -1,5 +1,6 @@
 package com.example.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.Receipt
@@ -24,6 +25,18 @@ class ReceiptViewModel @Inject constructor(
     private val _receipts = MutableStateFlow<List<Receipt>>(emptyList())
     val receipts: StateFlow<List<Receipt>> = _receipts.asStateFlow()
 
+    private val _editableReceipt = MutableStateFlow<Receipt?>(null)
+    val editableReceipt: StateFlow<Receipt?> = _editableReceipt.asStateFlow()
+
+    fun setEditableReceipt(receipt: Receipt) {
+        _editableReceipt.value = receipt
+        Log.d("ViewModel", "Editable receipt set: ${_editableReceipt.value}")
+    }
+
+    fun clearEditableReceipt() {
+        _editableReceipt.value = null
+    }
+
     init {
         observeReceipts()
     }
@@ -45,6 +58,12 @@ class ReceiptViewModel @Inject constructor(
     fun removeReceipt(receipt: Receipt) {
         viewModelScope.launch {
             deleteReceiptUseCase(receipt)
+        }
+    }
+
+    fun updateReceipt(string: String, double: Double) {
+        viewModelScope.launch {
+            //update use case
         }
     }
 }
