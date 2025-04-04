@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.Receipt
 import com.example.domain.usecases.DeleteReceiptUseCase
+import com.example.domain.usecases.EditReceiptUseCase
 import com.example.domain.usecases.GetReceiptsUseCase
 import com.example.domain.usecases.InsertReceiptUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +20,8 @@ import javax.inject.Inject
 class ReceiptViewModel @Inject constructor(
     private val insertReceiptUseCase: InsertReceiptUseCase,
     private val getReceiptsUseCase: GetReceiptsUseCase,
-    private val deleteReceiptUseCase: DeleteReceiptUseCase
+    private val deleteReceiptUseCase: DeleteReceiptUseCase,
+    private val editReceiptUseCase: EditReceiptUseCase
 ) : ViewModel() {
 
     private val _receipts = MutableStateFlow<List<Receipt>>(emptyList())
@@ -61,9 +63,9 @@ class ReceiptViewModel @Inject constructor(
         }
     }
 
-    fun updateReceipt(string: String, double: Double) {
+    fun updateReceipt(updatedReceipt: Receipt) {
         viewModelScope.launch {
-            //update use case
+            editReceiptUseCase(updatedReceipt)
         }
     }
 }

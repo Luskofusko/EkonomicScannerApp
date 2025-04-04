@@ -2,6 +2,7 @@ package com.example.domain.di
 
 import com.example.domain.repository.ReceiptRepository
 import com.example.domain.usecases.DeleteReceiptUseCase
+import com.example.domain.usecases.EditReceiptUseCase
 import com.example.domain.usecases.GetReceiptsUseCase
 import com.example.domain.usecases.InsertReceiptUseCase
 import dagger.Module
@@ -30,5 +31,11 @@ object DomainModule {
     @Singleton
     fun provideDeleteReceiptUseCase(repository: ReceiptRepository): DeleteReceiptUseCase {
         return DeleteReceiptUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideEditReceiptUseCase(repository: ReceiptRepository): EditReceiptUseCase {
+        return EditReceiptUseCase(repository)
     }
 }

@@ -51,25 +51,26 @@ fun EkonomicNavHost(navHostController: NavHostController, onCaptureClick: () -> 
                     onBack = { navHostController.popBackStack() }
                 )
             }
-            composable("editReceiptScreen") {
-                val receiptState = receiptViewModel.editableReceipt.collectAsState()
-
-                val receipt = receiptState.value
+            composable("editReceiptScreen/{receiptId}") { backStackEntry ->
+                val receiptId = backStackEntry.arguments?.getString("receiptId")?.toIntOrNull()
+                val receipt = receiptViewModel.receipts.collectAsState().value.find { it.id == receiptId }
 
                 Log.d("NavHost", "Editable Receipt: $receipt")
 
-                EditReceiptScreen(
-                    onSave = { newDate, newAmount ->
-                        receiptViewModel.updateReceipt(
-                            newDate, newAmount
-                        )
-                        navHostController.popBackStack()
-                    },
-                    onCancel = {
-                        navHostController.popBackStack()
-                    }
-                )
-
+                if (receipt != null) {
+                    EditReceiptScreen(
+                        receipt = receipt,
+                        onSave = { newDate, newAmount ->
+                            receiptViewModel.updateReceipt(
+                                receipt.copy(date = newDate, totalAmount = newAmount)
+                            )
+                            navHostController.popBackStack()
+                        },
+                        onCancel = {
+                            navHostController.popBackStack()
+                        }
+                    )
+                }
             }
         }
     }

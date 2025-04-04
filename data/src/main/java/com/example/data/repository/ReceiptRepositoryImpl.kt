@@ -24,4 +24,8 @@ class ReceiptRepositoryImpl@Inject constructor(
     override suspend fun deleteReceipt(receipt: Receipt) {
         receiptDao.deleteReceipt(receipt.toEntity())
     }
+
+    override suspend fun updateReceipt(updatedReceipt: Receipt) {
+        receiptDao.updateReceipt(updatedReceipt.toEntity())
+    }
 }
