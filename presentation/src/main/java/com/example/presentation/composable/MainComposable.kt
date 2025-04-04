@@ -20,7 +20,11 @@ import androidx.navigation.NavHostController
 import com.example.presentation.viewmodel.ReceiptViewModel
 
 @Composable
-fun MainComposable(navController: NavHostController, onCapturePhoto: () -> Unit, viewModel: ReceiptViewModel = hiltViewModel()) {
+fun MainComposable(
+    navController: NavHostController,
+    onCapturePhoto: () -> Unit,
+    viewModel: ReceiptViewModel = hiltViewModel()
+) {
     val receipts by viewModel.receipts.collectAsState()
 
     Scaffold(
@@ -52,7 +56,10 @@ fun MainComposable(navController: NavHostController, onCapturePhoto: () -> Unit,
             contentPadding = PaddingValues(bottom = 80.dp)
         ) {
             items(receipts) { receipt ->
-                ReceiptItem(receipt)
+                ReceiptItem(
+                    receipt,
+                    onDelete = { viewModel.removeReceipt(it)}
+                )
             }
         }
     }

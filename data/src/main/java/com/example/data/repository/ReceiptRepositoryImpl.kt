@@ -20,4 +20,8 @@ class ReceiptRepositoryImpl@Inject constructor(
     override fun getReceipts(): Flow<List<Receipt>> {
         return receiptDao.getAllReceipts().map { list -> list.map { it.toDomainModel() } }
     }
+
+    override suspend fun deleteReceipt(receipt: Receipt) {
+        receiptDao.deleteReceipt(receipt.toEntity())
+    }
 }

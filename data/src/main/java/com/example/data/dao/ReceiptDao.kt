@@ -1,6 +1,7 @@
 package com.example.data.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -14,4 +15,7 @@ interface ReceiptDao {
 
     @Query("SELECT * FROM receipts")
     fun getAllReceipts(): Flow<List<ReceiptEntity>>
+
+    @Delete
+    suspend fun deleteReceipt(receipt: ReceiptEntity)
 }
