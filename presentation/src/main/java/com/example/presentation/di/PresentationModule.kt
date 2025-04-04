@@ -1,6 +1,7 @@
 package com.example.presentation.di
 
 import com.example.domain.usecases.DeleteReceiptUseCase
+import com.example.domain.usecases.EditReceiptUseCase
 import com.example.domain.usecases.GetReceiptsUseCase
 import com.example.domain.usecases.InsertReceiptUseCase
 import com.example.presentation.viewmodel.ReceiptViewModel
@@ -19,8 +20,9 @@ object PresentationModule {
     fun provideReceiptViewModel(
         insertReceiptUseCase: InsertReceiptUseCase,
         getReceiptsUseCase: GetReceiptsUseCase,
-        deleteReceiptUseCase: DeleteReceiptUseCase
+        deleteReceiptUseCase: DeleteReceiptUseCase,
+        editReceiptUseCase: EditReceiptUseCase
     ): ReceiptViewModel {
-        return ReceiptViewModel(insertReceiptUseCase, getReceiptsUseCase, deleteReceiptUseCase)
+        return ReceiptViewModel(insertReceiptUseCase, getReceiptsUseCase, deleteReceiptUseCase, editReceiptUseCase)
     }
 }

@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.data.model.ReceiptEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -18,4 +19,7 @@ interface ReceiptDao {
 
     @Delete
     suspend fun deleteReceipt(receipt: ReceiptEntity)
+
+    @Update
+    suspend fun updateReceipt(receiptEntity: ReceiptEntity)
 }

@@ -9,4 +9,6 @@ interface ReceiptRepository {
     fun getReceipts(): Flow<List<Receipt>>
 
     suspend fun deleteReceipt(receipt: Receipt)
+
+    suspend fun updateReceipt(updatedReceipt: Receipt)
 }

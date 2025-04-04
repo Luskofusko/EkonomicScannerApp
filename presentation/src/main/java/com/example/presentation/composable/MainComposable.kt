@@ -61,8 +61,10 @@ fun MainComposable(
                     receipt,
                     onDelete = { viewModel.removeReceipt(it) },
                     onEdit = {
+                        viewModel.setEditableReceipt(it)
                         Log.d("EditableReceipt", "Updated receipt: ${it.date}, ${it.totalAmount}")
-                        navController.navigate("editReceiptScreen")
+                        navController.navigate("editReceiptScreen/${receipt.id}")
+
                     }
                 )
             }
