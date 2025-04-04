@@ -2,10 +2,12 @@ package com.example.presentation.navigation
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -13,6 +15,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.domain.model.Receipt
 import com.example.presentation.composable.CameraScreen
+import com.example.presentation.composable.EditReceiptScreen
 import com.example.presentation.composable.MainComposable
 import com.example.presentation.composable.ReceiptListScreen
 import com.example.presentation.utils.DateUtils
@@ -47,6 +50,26 @@ fun EkonomicNavHost(navHostController: NavHostController, onCaptureClick: () -> 
                     },
                     onBack = { navHostController.popBackStack() }
                 )
+            }
+            composable("editReceiptScreen") {
+                val receiptState = receiptViewModel.editableReceipt.collectAsState()
+
+                val receipt = receiptState.value
+
+                Log.d("NavHost", "Editable Receipt: $receipt")
+
+                EditReceiptScreen(
+                    onSave = { newDate, newAmount ->
+                        receiptViewModel.updateReceipt(
+                            newDate, newAmount
+                        )
+                        navHostController.popBackStack()
+                    },
+                    onCancel = {
+                        navHostController.popBackStack()
+                    }
+                )
+
             }
         }
     }
