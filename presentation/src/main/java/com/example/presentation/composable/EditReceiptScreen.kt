@@ -15,9 +15,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.domain.model.Receipt
+import com.example.presentation.R
 import com.example.presentation.viewmodel.ReceiptViewModel
 
 @Composable
@@ -37,21 +39,25 @@ fun EditReceiptScreen(
         OutlinedTextField(
             value = editedDate,
             onValueChange = { editedDate = it },
-            label = { Text("Date") },
-            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+            label = { Text(stringResource(id = R.string.date_label)) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
         )
 
         OutlinedTextField(
             value = editedAmount,
             onValueChange = { editedAmount = it },
-            label = { Text("Total Amount") },
-            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+            label = { Text(stringResource(id = R.string.total_amount_label)) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
             singleLine = true
         )
 
         Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
             Button(onClick = onCancel) {
-                Text("Cancel")
+                Text(stringResource(id = R.string.cancel_button))
             }
 
             Button(onClick = {
@@ -67,7 +73,7 @@ fun EditReceiptScreen(
                     onSave(editedDate, amount)
                 }
             }) {
-                Text("Save")
+                Text(stringResource(id = R.string.save_button))
             }
         }
     }

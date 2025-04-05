@@ -23,6 +23,7 @@ import com.example.presentation.viewmodel.ReceiptViewModel
 
 @Composable
 fun EkonomicNavHost(navHostController: NavHostController, onCaptureClick: () -> Unit) {
+
     val receiptViewModel: ReceiptViewModel = hiltViewModel()
 
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -43,7 +44,11 @@ fun EkonomicNavHost(navHostController: NavHostController, onCaptureClick: () -> 
                         val currentDate = DateUtils.getCurrentDate()
                         Handler(Looper.getMainLooper()).post {
                             receiptViewModel.addReceipt(
-                                Receipt(photoPath = uri.toString(), date = currentDate, totalAmount = 10.0, currency = "EUR")
+                                Receipt(
+                                    photoPath = uri.toString(),
+                                    date = currentDate,
+                                    totalAmount = Receipt.DEFAULT_TOTAL_AMOUNT,
+                                    currency = Receipt.DEFAULT_CURRENCY)
                             )
                             navHostController.popBackStack()
                         }

@@ -1,0 +1,26 @@
+<resources>
+    <string name="camera_capture_failed">Capture failed</string>
+    <string name="camera_capture_photo">Capture Photo</string>
+    <string name="camera_capture_go_back">Go Back</string>
+    <string name="confirm_button">Confirm</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="date_label">Date</string>
+    <string name="total_amount_label">Total amount</string>
+    <string name="currency_label">Currency</string>
+    <string name="save_button">Save</string>
+    <string name="add_receipt_button">Add</string>
+    <string name="receipt_date">Date: %1$s</string>
+    <string name="receipt_total">Total: %1$s %2$s</string>
+    <string name="insert_receipt_date_label">Date (YYYY-MM-DD)</string>
+    <string name="add_receipt">Add Receipt</string>
+    <string name="receipt_currency_eur">EUR</string>
+
+    <!-- Dialog Details-->
+    <string name="dialog_title_delete">Delete Receipt?</string>
+    <string name="dialog_message_delete">Are you sure you want to delete this receipt? This action cannot be undone.</string>
+    <string name="dialog_confirm_button_delete">Delete</string>
+    <string name="dialog_title_edit">Edit Receipt?</string>
+    <string name="dialog_message_edit">Would you like to edit this receipt?</string>
+    <string name="dialog_confirm_button_edit">Edit</string>
+
+</resources>

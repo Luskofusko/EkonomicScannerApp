@@ -5,12 +5,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
+import com.example.presentation.R
 
 @Composable
 fun ConfirmDialog(
     title: String,
     message: String,
-    confirmButtonText: String = "Confirm",
+    confirmButtonText: String = stringResource(id = R.string.confirm_button),
     onConfirm: () -> Unit,
     onDismiss: () -> Unit,
     showDialog: Boolean,
@@ -31,7 +33,7 @@ fun ConfirmDialog(
             },
             dismissButton = {
                 TextButton(onClick = onDismiss) {
-                    Text("Cancel")
+                    Text(stringResource(id = R.string.cancel_button))
                 }
             }
         )

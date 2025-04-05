@@ -11,7 +11,7 @@ import com.example.data.model.ReceiptEntity
 abstract class ReceiptDatabase : RoomDatabase() {
     abstract fun receiptDao(): ReceiptDao
 
-    companion object {
+    /*companion object {
         @Volatile
         private var INSTANCE: ReceiptDatabase? = null
 
@@ -26,5 +26,5 @@ abstract class ReceiptDatabase : RoomDatabase() {
                 instance
             }
         }
-    }
+    }*/
 }

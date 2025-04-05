@@ -24,9 +24,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.LifecycleOwner
+import com.example.presentation.R
 import com.google.common.util.concurrent.ListenableFuture
 import java.io.File
 import java.util.concurrent.ExecutorService
@@ -96,7 +98,7 @@ fun CameraScreen(
 
                             override fun onError(exception: ImageCaptureException) {
                                 Log.e("CameraX", "Photo capture failed: ${exception.message}", exception)
-                                Toast.makeText(context, "Capture failed", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, R.string.camera_capture_failed, Toast.LENGTH_SHORT).show()
                             }
                         }
                     )
@@ -106,7 +108,7 @@ fun CameraScreen(
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            Text("Capture Photo")
+            Text(stringResource(id = R.string.camera_capture_photo))
         }
 
         Button(
@@ -118,7 +120,7 @@ fun CameraScreen(
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            Text("Go Back")
+            Text(stringResource(id = R.string.camera_capture_go_back))
         }
     }
 }

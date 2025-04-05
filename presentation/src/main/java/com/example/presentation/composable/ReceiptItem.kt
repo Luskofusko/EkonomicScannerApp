@@ -26,9 +26,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.domain.model.Receipt
+import com.example.presentation.R
 import com.example.presentation.ui.theme.Indigo80
 
 @Composable
@@ -66,9 +68,18 @@ fun ReceiptItem(
                 modifier = Modifier.size(80.dp),
                 colorFilter =  if (isPlaceholder) ColorFilter.tint(Indigo80) else null
             )
-            Column(modifier = Modifier.weight(1f).padding(16.dp), horizontalAlignment = Alignment.Start) {
-                Text(text = "Date: ${receipt.date}", style = MaterialTheme.typography.titleMedium)
-                Text(text = "Total: ${receipt.totalAmount} ${receipt.currency}", style = MaterialTheme.typography.bodyMedium)
+            Column(modifier = Modifier
+                .weight(1f)
+                .padding(16.dp), horizontalAlignment = Alignment.Start) {
+                val dateText = stringResource(id = R.string.receipt_date, receipt.date)
+                val totalText = stringResource(
+                    id = R.string.receipt_total,
+                    receipt.totalAmount,
+                    receipt.currency
+                )
+
+                Text(text = dateText, style = MaterialTheme.typography.titleMedium)
+                Text(text = totalText, style = MaterialTheme.typography.bodyMedium)
             }
             IconButton(
                 onClick = { showEditDialog = true },
@@ -92,9 +103,9 @@ fun ReceiptItem(
         }
     }
     ConfirmDialog(
-        title = "Delete Receipt?",
-        message = "Are you sure you want to delete this receipt? This action cannot be undone.",
-        confirmButtonText = "Delete",
+        title = stringResource(id = R.string.dialog_title_delete),
+        message = stringResource(id = R.string.dialog_message_delete),
+        confirmButtonText = stringResource(id = R.string.dialog_confirm_button_delete),
         confirmButtonColor = MaterialTheme.colorScheme.error,
         showDialog = showDeleteDialog,
         onConfirm = { onDelete(receipt) },
@@ -102,9 +113,9 @@ fun ReceiptItem(
     )
 
     ConfirmDialog(
-        title = "Edit Receipt?",
-        message = "Would you like to edit this receipt?",
-        confirmButtonText = "Edit",
+        title = stringResource(id = R.string.dialog_title_edit),
+        message = stringResource(id = R.string.dialog_message_edit),
+        confirmButtonText = stringResource(id = R.string.dialog_confirm_button_edit),
         showDialog = showEditDialog,
         onConfirm = { onEdit(receipt) },
         onDismiss = { showEditDialog = false }

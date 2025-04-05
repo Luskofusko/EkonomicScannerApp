@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
             if (isGranted) {
                 navigateToCamera()
             } else {
-                Toast.makeText(this, "Camera permission is required to capture receipts.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.camera_permission_required, Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
 
     private fun navigateToCamera() {
         if (!packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
-            Toast.makeText(this, "No camera detected on this device.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.no_camera_detected, Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -52,13 +52,13 @@ class MainActivity : ComponentActivity() {
             try {
                 val cameraProvider = cameraProviderFuture.get()
                 if (cameraProvider.availableCameraInfos.isEmpty()) {
-                    Toast.makeText(this, "No available camera.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, R.string.no_available_camera, Toast.LENGTH_SHORT).show()
                     return@addListener
                 }
                 navController.navigate("cameraScreen")
 
             } catch (e: Exception) {
-                Toast.makeText(this, "Camera initialization failed.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.camera_initialization_failed, Toast.LENGTH_SHORT).show()
             }
         }, ContextCompat.getMainExecutor(this))
     }

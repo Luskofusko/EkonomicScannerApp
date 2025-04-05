@@ -16,10 +16,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.domain.model.Receipt
+import com.example.presentation.R
 import com.example.presentation.viewmodel.ReceiptViewModel
 
 @Composable
@@ -38,7 +40,7 @@ fun ReceiptListScreen(viewModel: ReceiptViewModel = hiltViewModel(), navControll
         }
         item {
             Button(onClick = { navController.popBackStack() }) {
-                Text("Go Back")
+                Text(stringResource(id = R.string.camera_capture_go_back))
             }
         }
     }
@@ -55,19 +57,19 @@ fun ReceiptInputSection(onAddReceipt: (Receipt) -> Unit) {
         OutlinedTextField(
             value = date,
             onValueChange = { date = it },
-            label = { Text("Date (YYYY-MM-DD)") },
+            label = { Text(stringResource(id = R.string.insert_receipt_date_label)) },
             modifier = Modifier.fillMaxWidth()
         )
         OutlinedTextField(
             value = totalAmount,
             onValueChange = { totalAmount = it },
-            label = { Text("Total Amount") },
+            label = { Text(stringResource(id = R.string.total_amount_label)) },
             modifier = Modifier.fillMaxWidth()
         )
         OutlinedTextField(
             value = currency,
             onValueChange = { currency = it },
-            label = { Text("Currency") },
+            label = { Text(stringResource(id = R.string.currency_label)) },
             modifier = Modifier.fillMaxWidth()
         )
         Button(
@@ -87,7 +89,7 @@ fun ReceiptInputSection(onAddReceipt: (Receipt) -> Unit) {
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Add Receipt")
+            Text(stringResource(id = R.string.add_receipt))
         }
     }
 }

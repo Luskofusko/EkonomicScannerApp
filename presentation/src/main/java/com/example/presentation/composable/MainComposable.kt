@@ -18,9 +18,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.presentation.R
 import com.example.presentation.viewmodel.ReceiptViewModel
 
 @Composable
@@ -50,7 +52,7 @@ fun MainComposable(
                     FloatingActionButton(
                         onClick = { navController.navigate("receiptList") }
                     ) {
-                        Text("Add")
+                        Text(stringResource(id = R.string.add_receipt_button))
                     }
                 }
             }
