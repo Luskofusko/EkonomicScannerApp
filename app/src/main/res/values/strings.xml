@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">EkonomicScannerApp</string>
+
+    <!-- Camera Details-->
+    <string name="camera_permission_required">Camera permission is required to capture receipts.</string>
+    <string name="no_camera_detected">No camera detected on this device.</string>
+    <string name="no_available_camera">No available camera.</string>
+    <string name="camera_initialization_failed">Camera initialization failed.</string>
+
 </resources>
