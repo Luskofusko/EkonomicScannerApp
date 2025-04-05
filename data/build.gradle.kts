@@ -46,4 +46,18 @@ dependencies {
     implementation(libs.hilt.android)
     kapt("com.google.dagger:hilt-android-compiler:${libs.versions.hilt.get()}")
     implementation(libs.javapoet)
+
+    // Testing
+    testImplementation(libs.junit)
+    // Room Testing
+    testImplementation(libs.androidx.room.testing)
+
+    // Hilt Testing
+    testImplementation(libs.hilt.android.testing)
+
+    // Coroutines for testing
+    testImplementation(libs.kotlinx.coroutines.test)
+
+    // Mockito
+    testImplementation(libs.mockito.core)
 }
