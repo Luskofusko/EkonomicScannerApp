@@ -46,4 +46,20 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // Testing
+    testImplementation(libs.junit)
+
+    // Hilt Testing
+    testImplementation(libs.hilt.android.testing)
+
+    // Coroutines for testing
+    testImplementation(libs.kotlinx.coroutines.test)
+
+    // Mockito
+    testImplementation(libs.mockito.core)
+
+    testImplementation(libs.mockk)
+    testImplementation(libs.junit.jupiter.api)
+    testImplementation(libs.junit.jupiter.engine)
 }

@@ -21,6 +21,9 @@ javax-inject = "1"
 compose = "1.5.4"
 coroutines = "1.6.0"
 mockito = "3.11.2"
+mockk = "1.13.2"
+coroutines-test = "1.7.0"
+junit-jupiter = "5.7.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -59,6 +62,10 @@ androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-compose-material-iconsExtended = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
+
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit-jupiter" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit-jupiter"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
